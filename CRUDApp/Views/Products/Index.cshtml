@@ -1,0 +1,52 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Products";
+}
+<h2 class="text-center mb-5">Products List</h2>
+
+<div class="row mb-5">
+    <div class="col">
+        <a class="btn btn-primary" asp-action="Create" asp-controller="Products">Create New</a>
+    </div>
+    <div></div>
+
+
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Brand</td>
+                <td>@product.Category</td>
+                <td>@product.Description</td>
+                <td>@(product.Price)$</td>
+                <td><img src="/Images/@product.ImageFilePath" width="100"/></td>
+                <td>@product.CreatedAt.ToString("MM/dd/yyyy")</td>
+                <td style="white-space:nowrap">
+                    <a class="btn btn-primary" asp-action="Edit" asp-controller="Products" asp-route-id="@product.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-controller="Products" asp-route-id="@product.Id" 
+                    onclick="return confirm('Are you Sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
